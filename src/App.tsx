@@ -7,9 +7,10 @@ import { AUTO_LANGUAGE } from './constants';
 import ArrowsIcon from './components/icons';
 import { LanguageSelector } from './components/LanguageSelector';
 import { SectionType } from './types.d';
+import { TextArea } from './components/TextArea';
 
 function App (){
-  const { fromLanguage, toLanguage, interchangeLanguages, setFromLanguage, setToLanguage } = useStore()
+  const { fromLanguage, toLanguage, fromText, setFromText, loading, result, setResult, interchangeLanguages, setFromLanguage, setToLanguage } = useStore()
 return (
   <Container fluid>
     <h1>Google Translate</h1>
@@ -21,12 +22,11 @@ return (
   value={fromLanguage}
   onChange={setFromLanguage}/>
   
-  <Form.Control
-  as='textarea'
-  placeholder='Introducir texto'
-  autoFocus
-  style={{ height: '150px'}}
-  />
+  <TextArea
+  type = {SectionType.From}
+ value={fromText}
+ onChange={setFromText}
+/>
 
   </Stack>
   </Col>
@@ -36,16 +36,19 @@ return (
   </button>
   </Col>
   <Col>
+
   <Stack gap={2}>
+      
   <LanguageSelector 
   type={SectionType.To}
   value={toLanguage}
   onChange={setToLanguage}/>
 
-<Form.Control
-  as='textarea'
-  placeholder='Traducción'
-  style={{ height: '150px'}}
+<TextArea
+  loading = {loading}
+  type= {SectionType.To}
+  value={result}
+  onChange={setResult}
   />
   </Stack>
   </Col>
